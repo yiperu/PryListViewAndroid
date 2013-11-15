@@ -3,9 +3,10 @@ package com.apps4s.prylistviewandroid;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 
-public class DetallePaisActivity extends Activity {
+public class DetallePaisActivity extends FragmentActivity {
 	private String country = "";
 	public static final String COUNTRY = "country";
 	
