@@ -3,9 +3,11 @@ package com.apps4s.prylistviewandroid;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends Activity implements OnItemClickListener{
+public class MainActivity extends FragmentActivity implements OnItemClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,18 @@ public class MainActivity extends Activity implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
 		// TODO Auto-generated method stub
 		String country = adapterView.getItemAtPosition(position).toString();
-		Intent intent = new Intent(this, DetallePaisActivity.class);
-		intent.putExtra(DetallePaisActivity.COUNTRY, country);
-		startActivity(intent);
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			//FragmentManager manager = getSupportFragmentManager();
+			android.support.v4.app.FragmentManager manager = getSupportFragmentManager();  
+			CountryInfoFragment fragment = (CountryInfoFragment)manager.findFragmentById(R.id.fragmentCountryInfo);
+			fragment.loadWebViewContent(country);
+		} else {
+			Intent intent = new Intent(this, DetallePaisActivity.class);
+			intent.putExtra(DetallePaisActivity.COUNTRY, country);
+			startActivity(intent);
+		}
+		
+		
 		
 	}
 

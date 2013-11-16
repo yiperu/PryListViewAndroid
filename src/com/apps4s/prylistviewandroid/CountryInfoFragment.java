@@ -1,5 +1,6 @@
 package com.apps4s.prylistviewandroid;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,16 +17,12 @@ public class CountryInfoFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		String country = ((DetallePaisActivity)getActivity()).getCountry();
-		webView.loadUrl("http://es.m.wikipedia.org/wiki/"+country);
-		webView.setWebViewClient(new WebViewClient(){
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url){
-				view.loadUrl(url);
-				return true;
-			}
-		});
 		
+		Activity activity = getActivity();
+		if (activity instanceof DetallePaisActivity) {
+			String country = ((DetallePaisActivity)getActivity()).getCountry();
+			loadWebViewContent(country);
+		}
 
 	}
 
@@ -39,6 +36,16 @@ public class CountryInfoFragment extends Fragment {
 		return webView;
 	}
 	
+	public void loadWebViewContent(String country){
+		webView.loadUrl("http://es.m.wikipedia.org/wiki/"+country);
+		webView.setWebViewClient(new WebViewClient(){
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url){
+				view.loadUrl(url);
+				return true;
+			}
+		});
+	}
 	
 
 }
